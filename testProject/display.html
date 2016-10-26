@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+
+</head>
+<body ng-controller="MainCtrl">
+
+ <h2>user table</h2>
+  	{{myWelcome}}
+</body>
+</html>
+<script>
+var app = angular.module('myApp', []);
+app.controller('MainCtrl', function($scope, $http) {
+    $http({
+        method : "GET",
+        url : "http://127.0.0.1:8000/quick/",
+	headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+    }).then(function mySucces(response) {
+        $scope.myWelcome = response.data;
+    }, function myError(response) {
+        $scope.myWelcome = response.statusText;
+    });
+});
+</script>
